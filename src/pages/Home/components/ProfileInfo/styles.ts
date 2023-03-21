@@ -41,6 +41,11 @@ export const HeaderProfile = styled.header`
 
     text-transform: uppercase;
     text-decoration: none;
+
+    :hover {
+      text-decoration: underline;
+      transition: 0.2s;
+    }
   }
 
   @media (max-width: 450px) {
