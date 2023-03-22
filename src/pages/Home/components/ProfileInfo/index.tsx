@@ -50,7 +50,6 @@ export function ProfileInfo() {
   useEffect(() => {
     fetchUserData()
   }, [fetchUserData])
-  console.log(user)
 
   return (
     <ProfileContainer>
@@ -62,11 +61,7 @@ export function ProfileInfo() {
             Github <FaExternalLinkAlt />
           </a>
         </HeaderProfile>
-        <Description>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </Description>
+        <Description>{user?.description}</Description>
 
         <Footer>
           <div>

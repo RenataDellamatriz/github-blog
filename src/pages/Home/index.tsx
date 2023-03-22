@@ -1,8 +1,16 @@
+import { useContextSelector } from 'use-context-selector'
+import { PostsContext } from '../../context/PostsContext'
 import { PostCard } from './components/PostCard'
 import { ProfileInfo } from './components/ProfileInfo'
 import { HomeContainer, InputContainer, PostCardWrapper } from './styles'
 
 export function Home() {
+  const posts = useContextSelector(PostsContext, (context) => {
+    return context.posts
+  })
+
+  console.log(posts)
+
   return (
     <HomeContainer>
       <ProfileInfo />
