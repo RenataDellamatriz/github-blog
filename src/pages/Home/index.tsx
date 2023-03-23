@@ -23,10 +23,16 @@ export function Home() {
       </InputContainer>
 
       <PostCardWrapper>
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {posts.map((post) => {
+          return (
+            <PostCard
+              key={post.id}
+              title={post.title}
+              date={post.createdAt}
+              body={post.body}
+            />
+          )
+        })}
       </PostCardWrapper>
     </HomeContainer>
   )

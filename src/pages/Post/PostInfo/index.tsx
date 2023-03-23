@@ -3,15 +3,14 @@ import { NavLink } from 'react-router-dom'
 import { PostFooter, PostInfoContainer, PostTitle } from './styles'
 import { IoIosArrowBack } from 'react-icons/io'
 import { BsGithub } from 'react-icons/bs'
-import { useContextSelector } from 'use-context-selector'
-import { PostsContext } from '../../../context/PostsContext'
+// import { useContextSelector } from 'use-context-selector'
+// import { PostsContext } from '../../../context/PostsContext'
 
 export function PostInfo() {
-  const posts = useContextSelector(PostsContext, (context) => {
-    return context.posts
-  })
+  // const posts = useContextSelector(PostsContext, (context) => {
+  //   return context.posts
+  // })
 
-  console.log(posts)
   return (
     <PostInfoContainer>
       <nav>

@@ -1,18 +1,35 @@
+/* eslint-disable camelcase */
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { createContext } from 'use-context-selector'
+
 import { api } from '../lib/axios'
 
 interface Post {
+  id: number
   title: string
   comments: string
   createdAt: string
   username: string
-  url: string
+  html_url: string
+  body: string
+}
+
+interface PostRaw {
+  id: number
+  title: string
+  comments: string
+  created_at: string
+  user: {
+    login: string
+  }
+  html_url: string
   body: string
 }
 
 interface PostsContextType {
-  posts: Post
+  posts: Post[]
 }
 
 interface PostsProviderProps {
@@ -21,42 +38,36 @@ interface PostsProviderProps {
 
 export const PostsContext = createContext({} as PostsContextType)
 
-export function PostsProvider({ children }: PostsProviderProps) {
-  const [posts, setPosts] = useState<Post>({} as Post)
+export function PostsContextProvider({ children }: PostsProviderProps) {
+  const [posts, setPosts] = useState<Post[]>([])
 
-  const fetchPosts = useCallback(async () => {
-    const response = await api.get(
-      ` /repos/renatadellamatriz/github-blog/issues/`,
-    )
-    setPosts(response.data)
+  const fetchIssues = useCallback(async () => {
+    const response: PostRaw[] = await (
+      await api.get(`repos/RenataDellamatriz/github-blog/issues`)
+    ).data
 
-    // const {
-    //   title,
-    //   comments,
-    //   created_at: createdAt,
-    //   user,
-    //   html_url: htmlUrl,
-    //   body,
-    // } = response.data
+    const getPosts: Post[] = response.map((post) => {
+      const { title, comments, html_url, created_at, user, body, id } = post
+      return {
+        id,
+        title,
+        comments,
+        html_url,
+        createdAt: formatDistanceToNow(new Date(created_at), {
+          locale: ptBR,
+          addSuffix: true,
+        }),
+        username: user.login,
+        body,
+      }
+    })
 
-    // const newPostObj = {
-    //   title,
-    //   username: user.login,
-    //   comments,
-    //   createdAt: formatDistanceToNow(new Date(createdAt), {
-    //     locale: ptBR,
-    //     addSuffix: true,
-    //   }),
-    //   url: htmlUrl,
-    //   body,
-    // }
-
-    // setPosts(newPostObj)
+    setPosts(getPosts)
   }, [])
 
   useEffect(() => {
-    fetchPosts()
-  }, [fetchPosts])
+    fetchIssues()
+  }, [fetchIssues])
 
   return (
     <PostsContext.Provider value={{ posts }}>{children}</PostsContext.Provider>
