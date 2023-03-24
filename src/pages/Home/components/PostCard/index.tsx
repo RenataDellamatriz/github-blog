@@ -1,3 +1,4 @@
+import { Post } from '../..'
 import {
   PostCardContainer,
   PostDescription,
@@ -6,17 +7,17 @@ import {
 } from './styles'
 
 interface PostProps {
-  title: string
-  date: string
-  body: string
+  post: Post
 }
 
-export function PostCard({ title, date, body }: PostProps) {
+export function PostCard({ post }: PostProps) {
+  const { createdAt, body, title, number } = post
+
   return (
-    <PostCardContainer to="/post" title="Post">
+    <PostCardContainer to={`${number}`} title="Post">
       <PostHeader>
         <PostTitle>{title}</PostTitle>
-        <span>{date}</span>
+        <span>{createdAt}</span>
       </PostHeader>
       <PostDescription>
         <p>{body}</p>

@@ -1,26 +1,101 @@
-import { PostInfo } from './PostInfo'
-import { PostConteiner, PostContent } from './styles'
+/* eslint-disable camelcase */
+import {
+  PostConteiner,
+  PostContent,
+  PostFooter,
+  PostInfoContainer,
+  PostTitle,
+} from './styles'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { NavLink, useParams } from 'react-router-dom'
+import { IoIosArrowBack } from 'react-icons/io'
+import { FaCalendarDay, FaComment, FaExternalLinkAlt } from 'react-icons/fa'
+import { BsGithub } from 'react-icons/bs'
+import { useCallback, useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+
+interface PostDetail {
+  id: number
+  title: string
+  comments: number
+  createdAt: string
+  username: string
+  url: string
+  body: string
+}
 
 export function Post() {
+  const [post, setPost] = useState<PostDetail>({} as PostDetail)
+  const { numberId } = useParams()
+
+  const fetchPost = useCallback(async () => {
+    const response = await api.get(
+      `repos/RenataDellamatriz/github-blog/issues/${numberId}`,
+    )
+
+    const {
+      title,
+      comments,
+      html_url: url,
+      created_at,
+      user,
+      body,
+      id,
+    } = response.data
+
+    const selectedPost = {
+      id,
+      title,
+      comments,
+      url,
+      createdAt: formatDistanceToNow(new Date(created_at), {
+        locale: ptBR,
+        addSuffix: true,
+      }),
+      username: user.login,
+      body,
+    }
+
+    setPost(selectedPost)
+  }, [numberId])
+
+  useEffect(() => {
+    fetchPost()
+  }, [fetchPost])
+
   return (
     <PostConteiner>
-      <PostInfo />
+      <PostInfoContainer>
+        <nav>
+          <NavLink to="/">
+            <IoIosArrowBack size={16} /> voltar
+          </NavLink>
+          <a>
+            ver no github <FaExternalLinkAlt />
+          </a>
+        </nav>
+
+        <PostTitle>{post.title}</PostTitle>
+        <PostFooter>
+          <div>
+            <BsGithub size={18} />
+            <span>renatadellamatriz</span>
+          </div>
+          <div>
+            <FaCalendarDay size={18} />
+            <span>{post.createdAt}</span>
+          </div>
+          <div>
+            <FaComment size={18} />
+            <span>{post.comments} comentários</span>
+          </div>
+        </PostFooter>
+      </PostInfoContainer>
       <PostContent>
-        <div>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            Programming languages all have built-in data structures, but these
-            often differ from one language to another. This article attempts to
-            list the built-in data structures available in JavaScript and what
-            properties they have. These can be used to build other data
-            structures. Wherever possible, comparisons with other languages are
-            drawn. Dynamic typing JavaScript is a loosely typed and dynamic
-            language. Variables in JavaScript are not directly associated with
-            any particular value type, and any variable can be assigned (and
-            re-assigned) values of all types:
-          </ReactMarkdown>
-        </div>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
       </PostContent>
     </PostConteiner>
   )

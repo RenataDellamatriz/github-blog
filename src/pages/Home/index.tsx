@@ -1,15 +1,77 @@
-import { useContextSelector } from 'use-context-selector'
-import { PostsContext } from '../../context/PostsContext'
+/* eslint-disable camelcase */
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { useCallback, useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
 import { PostCard } from './components/PostCard'
 import { ProfileInfo } from './components/ProfileInfo'
 import { HomeContainer, InputContainer, PostCardWrapper } from './styles'
 
-export function Home() {
-  const posts = useContextSelector(PostsContext, (context) => {
-    return context.posts
-  })
+export interface Post {
+  id: number
+  title: string
+  comments: string
+  createdAt: string
+  username: string
+  url: string
+  body: string
+  number: number
+}
 
-  console.log(posts)
+interface PostRaw {
+  id: number
+  title: string
+  comments: string
+  created_at: string
+  user: {
+    login: string
+  }
+  html_url: string
+  body: string
+  number: number
+}
+
+export function Home() {
+  const [posts, setPosts] = useState<Post[]>([])
+
+  const fetchIssues = useCallback(async () => {
+    const response: PostRaw[] = await (
+      await api.get(`repos/RenataDellamatriz/github-blog/issues`)
+    ).data
+
+    const getPosts: Post[] = response.map((post) => {
+      const {
+        title,
+        comments,
+        html_url: url,
+        created_at,
+        user,
+        body,
+        id,
+        number,
+      } = post
+
+      return {
+        id,
+        title,
+        comments,
+        url,
+        createdAt: formatDistanceToNow(new Date(created_at), {
+          locale: ptBR,
+          addSuffix: true,
+        }),
+        username: user.login,
+        body,
+        number,
+      }
+    })
+
+    setPosts(getPosts)
+  }, [])
+
+  useEffect(() => {
+    fetchIssues()
+  }, [fetchIssues])
 
   return (
     <HomeContainer>
@@ -17,21 +79,14 @@ export function Home() {
       <InputContainer>
         <div>
           <label htmlFor="">Publicações</label>
-          <span>6 publicações</span>
+          <span>{posts.length} publicações</span>
         </div>
         <input type="text" placeholder="Buscar conteúdo" />
       </InputContainer>
 
       <PostCardWrapper>
         {posts.map((post) => {
-          return (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              date={post.createdAt}
-              body={post.body}
-            />
-          )
+          return <PostCard key={`${post.id} - ${post.number}`} post={post} />
         })}
       </PostCardWrapper>
     </HomeContainer>
