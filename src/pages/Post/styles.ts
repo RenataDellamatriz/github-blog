@@ -8,6 +8,11 @@ export const PostConteiner = styled.div`
 `
 export const PostContent = styled.div`
   padding: 40px 32px;
+  img {
+    margin-top: 2rem;
+    align-self: center;
+    max-width: 100%;
+  }
 `
 
 export const PostInfoContainer = styled.div`

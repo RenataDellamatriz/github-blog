@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { Post } from '../..'
 import {
   PostCardContainer,
@@ -11,13 +13,18 @@ interface PostProps {
 }
 
 export function PostCard({ post }: PostProps) {
-  const { createdAt, body, title, number } = post
+  const { created_at: createdAt, body, title, number } = post
+
+  const formattedDate = formatDistanceToNow(new Date(createdAt), {
+    locale: ptBR,
+    addSuffix: true,
+  })
 
   return (
     <PostCardContainer to={`${number}`} title="Post">
       <PostHeader>
         <PostTitle>{title}</PostTitle>
-        <span>{createdAt}</span>
+        <span>{formattedDate}</span>
       </PostHeader>
       <PostDescription>
         <p>{body}</p>

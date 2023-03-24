@@ -73,7 +73,7 @@ export function Post() {
           <NavLink to="/">
             <IoIosArrowBack size={16} /> voltar
           </NavLink>
-          <a>
+          <a href={post.url}>
             ver no github <FaExternalLinkAlt />
           </a>
         </nav>
@@ -82,7 +82,7 @@ export function Post() {
         <PostFooter>
           <div>
             <BsGithub size={18} />
-            <span>renatadellamatriz</span>
+            <span>{post.username}</span>
           </div>
           <div>
             <FaCalendarDay size={18} />

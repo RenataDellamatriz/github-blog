@@ -23,6 +23,7 @@ export const PostHeader = styled.header`
   gap: 1rem;
 
   span {
+    text-transform: capitalize;
     font-size: 0.875rem;
     color: ${(props) => props.theme['base-span']};
     white-space: nowrap;
