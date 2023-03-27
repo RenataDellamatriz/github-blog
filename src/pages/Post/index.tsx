@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 interface PostDetail {
   id: number
@@ -30,6 +31,7 @@ interface PostDetail {
 export function Post() {
   const [post, setPost] = useState<PostDetail>({} as PostDetail)
   const { numberId } = useParams()
+  const { width } = useWindowSize()
 
   const fetchPost = useCallback(async () => {
     const response = await api.get(
@@ -71,10 +73,12 @@ export function Post() {
       <PostInfoContainer>
         <nav>
           <NavLink to="/">
-            <IoIosArrowBack size={16} /> voltar
+            <IoIosArrowBack size={16} />
+            {width < 400 ? '' : ' voltar'}
           </NavLink>
           <a href={post.url}>
-            ver no github <FaExternalLinkAlt />
+            {width < 400 ? '' : ' ver no github'}
+            <FaExternalLinkAlt />
           </a>
         </nav>
 

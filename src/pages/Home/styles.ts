@@ -6,7 +6,7 @@ export const HomeContainer = styled.main`
   margin-top: -5.5rem;
   padding: 1rem 2rem;
 `
-export const SearchInputContainer = styled.form`
+export const SearchInputContainer = styled.div`
   margin-top: 4.5rem;
   div {
     display: flex;

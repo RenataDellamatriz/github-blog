@@ -52,6 +52,9 @@ export const PostTitle = styled.h1`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
+  @media (max-width: 400px) {
+    text-align: center;
+  }
 `
 export const PostFooter = styled.footer`
   display: flex;
@@ -67,5 +70,10 @@ export const PostFooter = styled.footer`
     svg {
       color: ${(props) => props.theme['base-label']};
     }
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
   }
 `
