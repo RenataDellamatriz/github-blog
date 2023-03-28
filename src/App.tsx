@@ -13,7 +13,7 @@ export function App() {
   useEffect(() => {
     const delay = setTimeout(() => {
       setIsLoading(false)
-    }, 1000 * 4)
+    }, 1000 * 3)
 
     return () => {
       clearTimeout(delay)
