@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Post } from '../..'
+import { Post } from '../SearchPosts'
 import {
   PostCardContainer,
   PostDescription,

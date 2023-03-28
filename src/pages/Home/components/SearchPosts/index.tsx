@@ -3,7 +3,7 @@ import { api } from '../../../../lib/axios'
 import { PostCardWrapper, SearchInputContainer } from '../../styles'
 import { PostCard } from '../PostCard'
 
-interface Post {
+export interface Post {
   id: number
   title: string
   comments: string
