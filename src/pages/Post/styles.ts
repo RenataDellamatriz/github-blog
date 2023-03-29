@@ -8,6 +8,13 @@ export const PostConteiner = styled.div`
 `
 export const PostContent = styled.div`
   padding: 40px 32px;
+  p {
+    margin-bottom: 2rem;
+  }
+  h2 {
+    border-bottom: 1px solid ${(props) => props.theme['base-border']};
+    margin-bottom: 0.5rem;
+  }
   img {
     margin-top: 2rem;
     align-self: center;
