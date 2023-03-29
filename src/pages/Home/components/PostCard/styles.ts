@@ -20,13 +20,22 @@ export const PostCardContainer = styled(NavLink)`
 
 export const PostHeader = styled.header`
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
 
-  time {
-    text-transform: capitalize;
+  span {
+    white-space: nowrap;
     font-size: 0.875rem;
     color: ${(props) => props.theme['base-span']};
-    white-space: nowrap;
+    :first-letter {
+      text-transform: capitalize;
+    }
+  }
+  @media (max-width: 400px) {
+    gap: 2px;
+    span {
+      white-space: normal;
+    }
   }
 `
 export const PostTitle = styled.h3`

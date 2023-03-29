@@ -17,7 +17,6 @@ export const LanguageSelectorButton = styled(Select.Trigger)`
   svg {
     color: ${(props) => props.theme.blue};
     font-size: 2rem;
-    filter: drop-shadow(1px 1px 11px rgba(255, 255, 255, 0.6));
     transition: 0.3s ease-in-out;
   }
   &[data-state='open'] {
@@ -25,7 +24,7 @@ export const LanguageSelectorButton = styled(Select.Trigger)`
       transform: rotate(-180deg);
     }
     svg:nth-child(2) {
-      color: ${(props) => props.theme['base-title']};
+      color: ${(props) => props.theme['base-subtitle']};
     }
   }
 

@@ -70,7 +70,7 @@ export const PostFooter = styled.footer`
   margin-top: 8px;
 
   div:nth-child(2) {
-    span {
+    span:first-letter {
       text-transform: capitalize;
     }
   }

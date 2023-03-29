@@ -82,7 +82,6 @@ export const SVGContainer = styled.div`
     }
   }
   .svg-elem-2 {
-    filter: drop-shadow(1px 2px 5px rgba(255, 255, 255, 0.8));
     -webkit-animation: animate-svg-stroke-2 1s
         cubic-bezier(0.47, 0, 0.745, 0.715) 0.12s both,
       animate-svg-fill-2 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 0.9s both;

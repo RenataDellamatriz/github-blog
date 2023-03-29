@@ -5,6 +5,7 @@ import { api } from '../../../../lib/axios'
 import { PostCardWrapper, SearchInputContainer } from './styles'
 import { LanguageSelect } from '../LanguageSelect'
 import { PostCard } from '../PostCard'
+import { useWindowSize } from '../../../../hooks/useWindowSize'
 
 export interface Post {
   id: number
@@ -21,8 +22,10 @@ export function SearchPosts() {
   const [posts, setPosts] = useState<Post[]>([])
   const [currentLanguage, setCurrentLanguage] = useState(i18next.language)
   const { t } = useTranslation()
+  const { width } = useWindowSize()
 
-  const translatedPlaceholder = t('input_placeholder')
+  const translatedPlaceholder =
+    width <= 400 ? t('input_placeholder_400') : t('input_placeholder')
 
   function handleLanguageChange(currentLanguage: string) {
     setCurrentLanguage(currentLanguage)

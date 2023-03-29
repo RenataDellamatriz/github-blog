@@ -24,7 +24,7 @@ export function PostCard({ post }: PostProps) {
     <PostCardContainer to={`${number}`} title="Post">
       <PostHeader>
         <PostTitle>{title}</PostTitle>
-        <time>{formattedDate}</time>
+        <span>{formattedDate}</span>
       </PostHeader>
       <PostDescription>
         <p>{body}</p>
