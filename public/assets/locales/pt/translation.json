@@ -1,6 +1,7 @@
 {
   "posts":"Publicações",
   "posts_count":"publicações",
+  "posts_count_less_than_1":"publicação",
   "input_placeholder": "Digite aqui e tecle 'Enter' para buscar conteúdo",
   "input_placeholder_400": "Digite e tecle 'Enter' para buscar",
   "followers":"seguidores",

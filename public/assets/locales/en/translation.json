@@ -1,6 +1,7 @@
 {
   "posts":"Posts",
   "posts_count":"posts",
+  "posts_count_less_than_1":"post",
   "input_placeholder": "Type here and press 'Enter' to search for content",
   "input_placeholder_400": "Type and press 'Enter' to search ",
   "followers":"followers",

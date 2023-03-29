@@ -22,6 +22,7 @@ export const LanguageSelectorButton = styled(Select.Trigger)`
   &[data-state='open'] {
     svg:nth-child(1) {
       transform: rotate(-180deg);
+      color: ${(props) => props.theme['base-subtitle']};
     }
     svg:nth-child(2) {
       color: ${(props) => props.theme['base-subtitle']};

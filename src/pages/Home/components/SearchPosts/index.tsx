@@ -60,7 +60,8 @@ export function SearchPosts() {
         <div>
           <label htmlFor="">{t('posts')}</label>
           <span>
-            {posts.length} {t('posts_count')}
+            {posts.length}{' '}
+            {posts.length > 1 ? t('posts_count') : t('posts_count_less_than_1')}
           </span>
         </div>
         <input
