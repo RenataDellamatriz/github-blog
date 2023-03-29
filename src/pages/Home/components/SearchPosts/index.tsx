@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../../lib/axios'
-import { PostCardWrapper, SearchInputContainer } from '../../styles'
+import { PostCardWrapper, SearchInputContainer } from './styles'
 import { LanguageSelect } from '../LanguageSelect'
 import { PostCard } from '../PostCard'
 

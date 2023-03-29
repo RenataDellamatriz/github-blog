@@ -76,7 +76,7 @@ export function Post() {
         <nav>
           <NavLink to="/">
             <IoIosArrowBack size={16} />
-            {t('back')}
+            {width < 400 ? '' : t('back')}
           </NavLink>
           <a href={post.url}>
             {width < 400 ? '' : t('see_on_github')}

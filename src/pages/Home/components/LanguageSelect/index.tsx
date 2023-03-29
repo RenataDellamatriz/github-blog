@@ -7,6 +7,7 @@ import {
   SelectItem,
   SelectPortal,
 } from './styles'
+import { useState } from 'react'
 
 interface LanguageProps {
   language: string
@@ -14,8 +15,15 @@ interface LanguageProps {
 }
 
 export function LanguageSelect({ language, changeLanguage }: LanguageProps) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Select.Root value={language} onValueChange={changeLanguage}>
+    <Select.Root
+      value={language}
+      onValueChange={changeLanguage}
+      open={open}
+      onOpenChange={setOpen}
+    >
       <LanguageSelectorButton>
         <CaretDown size={20} />
         <Globe />
