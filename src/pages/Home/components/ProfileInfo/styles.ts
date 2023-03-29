@@ -33,6 +33,7 @@ export const HeaderProfile = styled.header`
     display: flex;
     justify-content: center;
     align-items: baseline;
+    cursor: pointer;
 
     gap: 8px;
 

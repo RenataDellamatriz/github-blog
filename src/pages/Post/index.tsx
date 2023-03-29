@@ -14,9 +14,10 @@ import { FaCalendarDay, FaComment, FaExternalLinkAlt } from 'react-icons/fa'
 import { BsGithub } from 'react-icons/bs'
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
-import { formatDistanceToNow } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { formatDistanceToNowStrict } from 'date-fns'
 import { useWindowSize } from '../../hooks/useWindowSize'
+import { useTranslation } from 'react-i18next'
+import getDateFnsLocale from '../../utils/formatDate'
 
 interface PostDetail {
   id: number
@@ -32,6 +33,7 @@ export function Post() {
   const [post, setPost] = useState<PostDetail>({} as PostDetail)
   const { numberId } = useParams()
   const { width } = useWindowSize()
+  const { t } = useTranslation()
 
   const fetchPost = useCallback(async () => {
     const response = await api.get(
@@ -53,8 +55,8 @@ export function Post() {
       title,
       comments,
       url,
-      createdAt: formatDistanceToNow(new Date(created_at), {
-        locale: ptBR,
+      createdAt: formatDistanceToNowStrict(new Date(created_at), {
+        locale: getDateFnsLocale(),
         addSuffix: true,
       }),
       username: user.login,
@@ -74,10 +76,10 @@ export function Post() {
         <nav>
           <NavLink to="/">
             <IoIosArrowBack size={16} />
-            {width < 400 ? '' : ' voltar'}
+            {t('back')}
           </NavLink>
           <a href={post.url}>
-            {width < 400 ? '' : ' ver no github'}
+            {width < 400 ? '' : t('see_on_github')}
             <FaExternalLinkAlt />
           </a>
         </nav>
@@ -94,7 +96,9 @@ export function Post() {
           </div>
           <div>
             <FaComment size={18} />
-            <span>{post.comments} comentários</span>
+            <span>
+              {post.comments} {t('comments')}
+            </span>
           </div>
         </PostFooter>
       </PostInfoContainer>

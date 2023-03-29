@@ -22,7 +22,7 @@ export const PostHeader = styled.header`
   display: flex;
   gap: 1rem;
 
-  span {
+  time {
     text-transform: capitalize;
     font-size: 0.875rem;
     color: ${(props) => props.theme['base-span']};

@@ -9,6 +9,7 @@ import { BsGithub, BsFillBuildingFill } from 'react-icons/bs'
 import { FaUserFriends, FaExternalLinkAlt } from 'react-icons/fa'
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../../../lib/axios'
+import { useTranslation } from 'react-i18next'
 
 interface UserProps {
   name: string
@@ -22,6 +23,7 @@ interface UserProps {
 
 export function ProfileInfo() {
   const [user, setUser] = useState<UserProps>()
+  const { t } = useTranslation()
 
   const fetchUserData = useCallback(async () => {
     const response = await api.get(`users/renatadellamatriz`)
@@ -61,7 +63,7 @@ export function ProfileInfo() {
             Github <FaExternalLinkAlt />
           </a>
         </HeaderProfile>
-        <Description>{user?.description}</Description>
+        <Description>{t('user_description')}</Description>
 
         <Footer>
           <div>
@@ -74,7 +76,9 @@ export function ProfileInfo() {
           </div>
           <div>
             <FaUserFriends size={18} />
-            <span>{user?.followers} followers</span>
+            <span>
+              {user?.followers} {t('followers')}
+            </span>
           </div>
         </Footer>
       </div>

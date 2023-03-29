@@ -1,0 +1,10 @@
+{
+  "posts":"Publicaciones",
+  "posts_count":"publicaciones",
+  "input_placeholder": "Escribe aquí y pulsa 'Enter' para buscar contenido",
+  "followers":"seguidores",
+  "back":"regresar",
+  "see_on_github": "ver en github",
+  "comments":"comentarios",
+  "user_description": "¡Hola! 👋 Soy Renata, una apasionada desarrolladora de front-end con experiencia en la creación de interfaces web hermosas y receptivas."
+}

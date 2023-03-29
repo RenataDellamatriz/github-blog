@@ -1,6 +1,9 @@
+import i18next from 'i18next'
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { api } from '../../../../lib/axios'
 import { PostCardWrapper, SearchInputContainer } from '../../styles'
+import { LanguageSelect } from '../LanguageSelect'
 import { PostCard } from '../PostCard'
 
 export interface Post {
@@ -16,14 +19,29 @@ export interface Post {
 
 export function SearchPosts() {
   const [posts, setPosts] = useState<Post[]>([])
+  const [currentLanguage, setCurrentLanguage] = useState(i18next.language)
+  const { t } = useTranslation()
 
-  const fetchPosts = useCallback(async (query: string | null) => {
-    const response = await api.get(
-      `search/issues?q=${query}is:issue%20is:open%20repo:RenataDellamatriz/github-blog`,
-    )
+  const translatedPlaceholder = t('input_placeholder')
 
-    setPosts(response.data.items)
-  }, [])
+  function handleLanguageChange(currentLanguage: string) {
+    setCurrentLanguage(currentLanguage)
+  }
+
+  useEffect(() => {
+    i18next.changeLanguage(currentLanguage)
+  }, [currentLanguage])
+
+  const fetchPosts = useCallback(
+    async (query: string | null) => {
+      const response = await api.get(
+        `search/issues?q=${query}is:issue%20label:${currentLanguage}%20is:open%20repo:RenataDellamatriz/github-blog`,
+      )
+
+      setPosts(response.data.items)
+    },
+    [currentLanguage],
+  )
 
   useEffect(() => {
     fetchPosts('')
@@ -31,14 +49,20 @@ export function SearchPosts() {
 
   return (
     <>
+      <LanguageSelect
+        language={currentLanguage}
+        changeLanguage={handleLanguageChange}
+      />
       <SearchInputContainer>
         <div>
-          <label htmlFor="">Publicações</label>
-          <span>{posts.length} publicações</span>
+          <label htmlFor="">{t('posts')}</label>
+          <span>
+            {posts.length} {t('posts_count')}
+          </span>
         </div>
         <input
           type="text"
-          placeholder="Digite aqui para tecle 'Enter' buscar conteúdo"
+          placeholder={translatedPlaceholder}
           onKeyDown={(e) => {
             e.key === 'Enter' && fetchPosts(e.currentTarget.value)
           }}

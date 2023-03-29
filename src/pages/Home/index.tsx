@@ -7,6 +7,7 @@ export function Home() {
   return (
     <HomeContainer>
       <ProfileInfo />
+
       <SearchPosts />
     </HomeContainer>
   )

@@ -62,6 +62,12 @@ export const PostFooter = styled.footer`
   gap: 32px;
   margin-top: 8px;
 
+  div:nth-child(2) {
+    span {
+      text-transform: capitalize;
+    }
+  }
+
   div {
     display: flex;
     align-items: flex-start;

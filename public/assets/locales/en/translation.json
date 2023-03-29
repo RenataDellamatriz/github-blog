@@ -1,0 +1,10 @@
+{
+  "posts":"Posts",
+  "posts_count":"posts",
+  "input_placeholder": "Type here and press 'Enter' to search for content",
+  "followers":"followers",
+  "back":"back",
+  "see_on_github": "see on github",
+  "comments":"comments",
+  "user_description": "Hi there! 👋 I'm Renata, a passionate front-end developer with experience in crafting beautiful and responsive web interfaces."
+}
